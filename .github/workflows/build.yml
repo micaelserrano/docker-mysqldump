@@ -4,7 +4,7 @@ on:
   push:
   workflow_dispatch:
 env:
-  REGISTRY_IMAGE: ${{ GITHUB_ACTION_REPOSITORY }}
+  REGISTRY_IMAGE: ghcr.io/${{ github.action_repository }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
