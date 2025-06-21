@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: 0 0 * * *
 env:
-  PROJECT_NAME: docker-mysqldump
+  PROJECT_NAME: ${{ github.ref_name }}
 
 jobs:
   prune-images:
