@@ -4,7 +4,7 @@ on:
   push:
   workflow_dispatch:
 env:
-  REGISTRY_IMAGE: ghcr.io/micaelserrano/docker-mysqldump
+  REGISTRY_IMAGE: ${{ github.action_repository }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
