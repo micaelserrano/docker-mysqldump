@@ -1,7 +1,7 @@
 ## Supported tags and respective Dockerfile links
-latest ([Dockerfile](https://github.com/alexanderschnitzler/docker-mysqldump/blob/master/Dockerfile))
+latest ([Dockerfile](Dockerfile))
 
-The container is based on `alpine:3.18`, thus it is very small.
+The container is based on `alpine`, thus it is very small.
 
 
 ## What is schnitzler/mysqldump?
@@ -36,7 +36,7 @@ drwxrwxr-x 4 whoami whoami 4096 Feb 25 17:51 ..
 
 Mind the file permissions!  
 `chown 0:0 backup && chmod 700 backup`  
-`chown 0:0 backup && chmod 600 crontab`
+`chown 0:0 crontab && chmod 600 crontab`
 
 ##### docker-compose.yml
 ```
@@ -51,7 +51,7 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: database
   cron:
-    image: schnitzler/mysqldump
+    image: ghcr.io/micaelserrano/docker-mysqldump:latest
     restart: always
     volumes:
       - ./bin/crontab:/var/spool/cron/crontabs/root
@@ -105,7 +105,7 @@ version: '2'
 services:
   ...
   cron:
-    image: schnitzler/mysqldump
+    image: ghcr.io/micaelserrano/docker-mysqldump:latest
     restart: always
     volumes:
       - ./bin/backup:/etc/periodic/daily/backup
@@ -129,6 +129,6 @@ docker run \
     --rm --entrypoint "" \
     -v `pwd`/backup:/backup \
     --link="container:alias" \
-    schnitzler/mysqldump \
+    ghcr.io/micaelserrano/docker-mysqldump:latest \
     mysqldump --opt -h alias -u user -p"password" "--result-file=/backup/dumps.sql" database
 ```
