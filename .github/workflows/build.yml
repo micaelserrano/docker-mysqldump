@@ -3,25 +3,15 @@ name: build
 on:
   push:
   workflow_dispatch:
-
+env:
+  REGISTRY_IMAGE: ghcr.io/${{ github.repository }}
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set REGISTRY_IMAGE variable
-        run: |
-          echo "REGISTRY_IMAGE=gchr.io/${{ github.repository }}" >> $GITHUB_ENV
-          
+jobs:          
   build:
     runs-on: ubuntu-latest
-    env: 
-      REGISTRY_IMAGE: ${{ needs.prepare.outputs.registry_image }}
-    needs:
-      - prepare
     strategy:
       fail-fast: false
       matrix:
@@ -79,11 +69,8 @@ jobs:
 
   merge:
     runs-on: ubuntu-latest
-    env: 
-      REGISTRY_IMAGE: ${{ needs.prepare.outputs.registry_image }}
     needs:
       - build
-      - prepare
     steps:
       - name: Download digests
         uses: actions/download-artifact@v4
