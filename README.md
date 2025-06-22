@@ -4,7 +4,7 @@ latest ([Dockerfile](Dockerfile))
 The container is based on `alpine`, thus it is very small.
 
 
-## What is schnitzler/mysqldump?
+## What is mysqldump?
 
 This container can be used in two ways. It is prepared to run `crond` by default, so you can integrate this container in your `docker-compose.yml` and do regularly backups defined by a `crontab` and backup `script`.
 
